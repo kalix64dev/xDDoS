@@ -7,7 +7,7 @@
 
 ## Hakkında
 
-**xDDoS**, modern C# ile geliştirilmiş, çoklu platform destekli (Windows, Linux, Termux) yüksek performanslı bir DDoS/yük testi aracıdır, Eğitim ve test amaçlıdır.
+**xDDoS**, modern C# ile geliştirilmiş, çoklu platform destekli (Windows, Linux, Termux) yüksek performanslı bir DDoS/yük testi aracıdır. HTTP, TCP ve UDP flood modülleri içerir. Eğitim ve test amaçlıdır.
 
 ---
 
@@ -25,12 +25,35 @@
 - TCP Flood (asenkron, yüksek hızlı)
 - UDP Flood (asenkron, yüksek hızlı)
 - Kullanıcı dostu CLI arayüzü
+- Windows x64 ve Termux (Linux/ARM64) desteği
+- Tek dosya (onefile) derleme
+- Gömülü PDB (debug) desteği
+- Kolay özelleştirilebilir modüller
+
 ---
 
 ## Gereksinimler
 
-- Linux x64/arm64 desteklemektedir.
-- Windows x64/x86/arm64 desteklemektedir.
+- .NET 6.0 SDK ([İndir](https://dotnet.microsoft.com/en-us/download/dotnet/6.0))
+- Windows x64 veya Linux/ARM64 (Termux)
+
+---
+
+## Derleme
+
+**Windows x64 için:**
+
+```sh
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:DebugType=embedded -o ./bin/win-x64/
+```
+
+**Termux (Linux/ARM64) için:**
+
+```sh
+dotnet publish -c Release -r linux-arm64 --self-contained true -p:PublishSingleFile=true -p:DebugType=embedded -o ./bin/linux-arm64/
+```
+
+> 32 bit Linux için self-contained binary desteklenmez. Sadece framework-dependent olarak derleyebilirsiniz.
 
 ---
 
@@ -39,12 +62,14 @@
 **Windows:**
 
 ```sh
+cd bin/win-x64/
 xDDoS.exe
 ```
 
 **Termux / Linux:**
 
 ```sh
+cd bin/linux-arm64/
 chmod +x xDDoS
 ./xDDoS
 ```
@@ -65,7 +90,8 @@ chmod +x xDDoS
 ## Gelişmiş Özellikler
 
 - User-Agent ve Proxy desteği (obfuscateli dosya ile)
-- Süreye göre saldırı
+- Süreye göre saldırı (istek sayısı yerine)
+- Anlık ve toplam istatistikler (isteğe bağlı PHP backend ile)
 
 ---
 
